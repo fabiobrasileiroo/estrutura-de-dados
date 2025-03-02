@@ -5,3 +5,10 @@ Stack ou pilha é um estrutura de dados que usar príncipios de LIFO(last in, fi
 
 ## Esse artigo me ajudou a fazer um makefile melhor rsrs
 <a href="https://embarcados.com.br/introducao-ao-makefile/">embarcados.com.br</a>
+
+
+### dep
+
+```  bash
+npm i -g nodemon
+``` 
