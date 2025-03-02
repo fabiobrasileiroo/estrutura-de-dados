@@ -4,4 +4,4 @@ Stack ou pilha é um estrutura de dados que usar príncipios de LIFO(last in, fi
 
 
 ## Vídeo que me ajudou a fazer um makefile melhor rsrs
-[https://www.youtube.com/watch?v=Vq7dr0yatS8](Fora da norma makefile)
+<a href="https://www.youtube.com/watch?v=Vq7dr0yatS8"> Fora da norma makefile</a>
