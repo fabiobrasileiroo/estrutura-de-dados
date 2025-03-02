@@ -12,3 +12,8 @@ Stack ou pilha é uma estrutura de dados que usa princípios de LIFO (last in, f
 ```  bash
 npm i -g nodemon
 ``` 
+
+### ou rode apenas
+``` 
+make all && ./printy
+```
