@@ -1,0 +1,5 @@
+{
+  "watch": ["*.c"],
+  "ext": "c",
+  "exec": "make all && ./printy"
+}

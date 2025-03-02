@@ -3,40 +3,55 @@
 # Name of the project
 PROJ_NAME = printy
 
-# Find all .c files in the source folder
-C_SOURCE = $(wildcard source/*.c)
+# .c files
+C_SOURCE = $(wildcard ./source/*.c)
 
-# Create corresponding object files in the objects folder
-OBJ = $(patsubst source/%.c, objects/%.o, $(C_SOURCE))
+# .h files
+H_SOURCE = $(wildcard ./source/*.h)
+
+# Object files
+OBJ = $(subst .c,.o,$(subst source,objects,$(C_SOURCE)))
 
 # Compiler and linker
 CC = gcc
 
-# Flags for the compiler
-CC_FLAGS = -c -W -Wall -ansi -pedantic
+# Flags for compiler
+CC_FLAGS = -c         \
+           -W         \
+           -Wall      \
+           -ansi      \
+           -pedantic
 
-# Default target
-all: $(PROJ_NAME)
+# Command used at clean target
+RM = rm -rf
 
-# Link all object files to create the final binary
+#
+# Compilation and linking
+#
+all: objFolder $(PROJ_NAME)
+
 $(PROJ_NAME): $(OBJ)
-	@echo "Linking objects to build binary: $@"
-	$(CC) $(OBJ) -o $(PROJ_NAME)
-	@echo "Finished building binary: $@"
+	@ echo 'Building binary using GCC linker: $@'
+	$(CC) $^ -o $@
+	@ echo 'Finished building binary: $@'
+	@ echo ' '
 
-# Pattern rule to compile any .c file in source into an .o file in objects.
-# The order-only prerequisite (after |) ensures the objects folder exists.
-objects/%.o: source/%.c | objects
-	@echo "Compiling $<..."
-	$(CC) $(CC_FLAGS) $< -o $@
+./objects/%.o: ./source/%.c ./source/%.h
+	@ echo 'Building target using GCC compiler: $<'
+	$(CC) $< $(CC_FLAGS) -o $@
+	@ echo ' '
 
-# Create the objects folder if it does not exist.
-objects:
-	mkdir -p objects
+./objects/main.o: ./source/main.c $(H_SOURCE)
+	@ echo 'Building target using GCC compiler: $<'
+	$(CC) $< $(CC_FLAGS) -o $@
+	@ echo ' '
 
-# Clean build files
+objFolder:
+	@ mkdir -p objects
+
 clean:
-	@echo "Cleaning up..."
-	rm -rf objects $(PROJ_NAME)
+	@ $(RM) ./objects/*.o $(PROJ_NAME) *~
+	@ rmdir objects
 
-.PHONY: all clean
+# Novo alvo para executar o binário após a compilação
+.PHONY: all clean run
